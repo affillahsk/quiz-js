@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Cashier by Aff</title>
+</head>
+
+<body>
+    <h1>Daftar Harga Buah Toko Sabar</h1>
+    <h2>Berikut harga buah segar yang tersedia hari ini</h2>
+    <ol>
+        <li>Apel = Rp. 17.3/gram</li>
+        <li>Mangga = Rp. 18.4/gram</li>
+        <li>Anggur = Rp. 20.2/gram</li>
+        <li>Pisang = Rp. 22.1/gram</li>
+    </ol>
+
+    <hr>
+
+
+    <h1>Pesanan Anda</h1>
+    <h2>Silakan isi data berikut untuk memesan buah yang tersedia.</h2>
+    <h1>PROMO!!!</h1> 
+    <h2>nikmati diskon sebesar 10% dengan minimum pembelian Rp.100.000</h2>
+    <h2>diskon 20% dengan minimum pembelian Rp.300.000</h2>
+    <h2>dan diskon 30% dengan minimum pembelian Rp.500.000</h2>
+
+    <p>Data Pemesan</p>
+    <p>Nama :</p>
+    <input type="text" id="namain">
+    <p>Alamat :</p>
+    <input type="text" id="alamatin">
+    <p>Telepon :</p>
+    <input type="number" id="teleponin"> <br> <br>
+
+    <table border="1" style="text-align: center;">
+        <tbody>
+            <tr>
+                <th>Nama Buah</th>
+                <th>Kuantitas (gram)</th>
+                <th>Harga</th>
+            </tr>
+            <tr>
+                <td>Apel</td>
+                <td><input type="number" id="kuantitasin1"></td>
+                <td><input type="number" id="pricein1" readonly></td>
+            </tr>
+            <tr>
+                <td>Mangga</td>
+                <td><input type="number" id="kuantitasin2"></td>
+                <td><input type="number" id="pricein2" readonly></td>
+            </tr>
+            <tr>
+                <td>Anggur</td>
+                <td><input type="number" id="kuantitasin3"></td>
+                <td><input type="number" id="pricein3" readonly></td>
+            </tr>
+            <tr>
+                <td>Pisang</td>
+                <td><input type="number" id="kuantitasin4"></td>
+                <td><input type="number" id="pricein4" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2">Total</td>
+                <td><input type="number" id="totalin" readonly></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+
+    <button onclick="cetak()">Cetak Bon</button>
+
+    <hr>
+
+    <h1>Bon Anda</h1>
+
+    <table style="width: fit-content" ; border="1px">
+        <tr>
+            <td>Nama</td>
+            <td><input type="text" style="width: 300px;" id="namaout" readonly></td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td><input type="text" style="width: 300px;" id="alamatout" readonly></td>
+        </tr>
+        <tr>
+            <td>Nomor Telepon</td>
+            <td><input type="text" style="width: 300px;" id="teleponout" readonly></td>
+        </tr>
+
+    </table> <br> <br>
+
+    <table style="text-align: center; " border="1">
+        <tbody>
+            <tr>
+                <th>Nama Buah</th>
+                <th>Harga Pergram</th>
+                <th>Kuantitas (gram)</th>
+                <th>Harga</th>
+            </tr>
+            <tr>
+                <td>Apel</td>
+                <td><input type="number" id="price1" value="17.3" readonly></td>
+                <td><input type="number" id="kuantitasout1" readonly></td>
+                <td><input type="number" id="priceg1" readonly></td>
+            </tr>
+            <tr>
+                <td>Mangga</td>
+                <td><input type="number" id="price2" value="18.4" readonly></td>
+                <td><input type="number" id="kuantitasout2" readonly></td>
+                <td><input type="number" id="priceg2" readonly></td>
+            </tr>
+            <tr>
+                <td>Anggur</td>
+                <td><input type="number" id="price3" value="20.2" readonly></td>
+                <td><input type="number" id="kuantitasout3" readonly></td>
+                <td><input type="number" id="priceg3" readonly></td>
+            </tr>
+            <tr>
+                <td>Pisang</td>
+                <td><input type="number" id="price4" value="22.1" readonly></td>
+                <td><input type="number" id="kuantitasout4" readonly></td>
+                <td><input type="number" id="priceg4" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="3" id="tdtotal">Total</td>
+                <td><input type="number" readonly id="totalout"></td>
+            </tr>
+            <tr>
+                <td colspan=3>Diskon <span id="spans"></span></td>
+                <td><input type="text" readonly id="discount"></td>
+            </tr>
+            <tr>
+                <td colspan="3">Total Harga Setelah Diskon</td>
+                <td><input type="number" readonly id="hargabersih"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function cetak() {
+            let cetakDiskon;
+            let totalharga;
+            let hargaDiskon;
+
+            var name = document.getElementById("namain").value;
+            var address = document.getElementById("alamatin").value;
+            var telephone = document.getElementById("teleponin").value;
+            var qty1 = document.getElementById("kuantitasin1").value;
+            var qty2 = document.getElementById("kuantitasin2").value;
+            var qty3 = document.getElementById("kuantitasin3").value
+            var qty4 = document.getElementById("kuantitasin4").value;
+            var pricein1 = document.getElementById("pricein1").value = qty1 * 17.3;
+            var pricein2 = document.getElementById("pricein2").value = qty2 * 18.4;
+            var pricein3 = document.getElementById("pricein3").value = qty3 * 20.2;
+            var pricein4 = document.getElementById("pricein4").value = qty4 * 22.1;
+            var totalin = document.getElementById("totalin").value = pricein1 + pricein2 + pricein3 + pricein4;
+
+            if (totalin < 100000){
+                document.getElementById("spans").innerHTML = "Tidak ada"
+                totalharga = totalin;
+            }else if ((totalin >= 100000) && (totalin < 300000)) {
+                document.getElementById("spans").innerHTML = "10%"
+                cetakDiskon = 10 / 100;
+                hargaDiskon = document.getElementById("discount").value = totalin * cetakDiskon
+                totalharga = totalin - (totalin * cetakDiskon);
+            }else if (totalin >= 300000 && totalin < 500000){
+                document.getElementById("spans").innerHTML = "20%"
+                cetakDiskon = 20 / 100;
+                hargaDiskon = document.getElementById("discount").value = totalin * cetakDiskon
+                totalharga = totalin - (totalin * cetakDiskon);
+            }else{
+                document.getElementById("spans").innerHTML = "30%"
+                cetakDiskon = 30 / 100;
+                hargaDiskon = document.getElementById("discount").value = totalin * cetakDiskon
+                totalharga = totalin - (totalin * cetakDiskon);
+            }
+
+            document.getElementById("namaout").value = name;
+            document.getElementById("alamatout").value = address;
+            document.getElementById("teleponout").value = telephone
+            document.getElementById("kuantitasout1").value = qty1;
+            document.getElementById("kuantitasout2").value = qty2;
+            document.getElementById("kuantitasout3").value = qty3;
+            document.getElementById("kuantitasout4").value = qty4;
+            document.getElementById("priceg1").value = pricein1;
+            document.getElementById("priceg2").value = pricein2;
+            document.getElementById("priceg3").value = pricein3;
+            document.getElementById("priceg4").value = pricein4;
+            document.getElementById("totalout").value = totalin;
+            document.getElementById("hargabersih").value = totalharga;
+            
+        }
+    </script>
+</body>
+
+</html>
